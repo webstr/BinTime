@@ -26,21 +26,8 @@ public class WordFrequencyDaoImpl implements WordFrequencyDAO {
 
     public void addWordFrequency(WordFrequency wordFrequency) {
         Session session = sessionFactory.openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            session.save(wordFrequency);
-            tx.commit();
-        }
-        catch (Exception e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-        }
-        finally {
-            session.close();
-        }
-
+        session.save(wordFrequency);
+        session.close();
     }
 
     public List<WordFrequency> listWordFrequency() {

@@ -1,5 +1,7 @@
 package com.ponikarchuk.controller;
 
+import com.ponikarchuk.service.WordFrequencyService;
+import com.ponikarchuk.service.WordFrequencyServiceImpl;
 import com.ponikarchuk.thread.Parser;
 import com.ponikarchuk.dao.WordFrequencyDaoImpl;
 import com.ponikarchuk.model.WordFrequency;
@@ -17,41 +19,12 @@ public class CustomRestController {
 
     @RequestMapping("/second")
     public List<WordFrequency> second() {
-        return new WordFrequencyDaoImpl().listWordFrequency();
+        return new WordFrequencyServiceImpl().listWordFrequency();
     }
 
     @RequestMapping(value = "/first", method = RequestMethod.POST)
     public void first(@RequestParam("files") List<MultipartFile> files) {
-        WordFrequencyDaoImpl wordFrequencyDao = new WordFrequencyDaoImpl();
-        wordFrequencyDao.deleteAll();
-
-        Semaphore semaphore = new Semaphore(3);
-        List<Thread> threadList = new ArrayList<>();
-        for (MultipartFile multipartFile : files) {
-            try {
-                Scanner in = new Scanner(multipartFile.getInputStream());
-                Parser parser = new Parser(semaphore, in);
-                threadList.add(parser);
-                parser.start();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        for (Thread thread : threadList) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        for (Map.Entry<String, Integer> entry : map.entrySet())
-        {
-            WordFrequency wordFrequency = new WordFrequency();
-            wordFrequency.setValue(entry.getKey());
-            wordFrequency.setCount(entry.getValue());
-            wordFrequencyDao.addWordFrequency(wordFrequency);
-        }
+        new WordFrequencyServiceImpl().addViewWordFrequency(map, files);
+        map = new HashMap<>();
     }
 }
