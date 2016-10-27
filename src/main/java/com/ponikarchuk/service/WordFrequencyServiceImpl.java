@@ -4,8 +4,6 @@ import com.ponikarchuk.dao.WordFrequencyDAO;
 import com.ponikarchuk.dao.WordFrequencyDaoImpl;
 import com.ponikarchuk.model.WordFrequency;
 import com.ponikarchuk.thread.Parser;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -57,14 +55,12 @@ public class WordFrequencyServiceImpl implements WordFrequencyService{
             }
         }
 
-        for (Map.Entry<String, Integer> entry : map.entrySet())
-        {
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
             WordFrequency wordFrequency = new WordFrequency();
             wordFrequency.setValue(entry.getKey());
             wordFrequency.setCount(entry.getValue());
             wordFrequencyDAO.addWordFrequency(wordFrequency);
         }
-
 
     }
 }

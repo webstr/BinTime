@@ -1,8 +1,6 @@
 package com.ponikarchuk.util;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -19,7 +17,6 @@ public class AppConfig extends WebMvcConfigurerAdapter{
         internalResourceViewResolver.setSuffix(".jsp");
         return internalResourceViewResolver;
     }
-
 
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {

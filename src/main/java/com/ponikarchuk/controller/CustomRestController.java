@@ -1,16 +1,11 @@
 package com.ponikarchuk.controller;
 
-import com.ponikarchuk.service.WordFrequencyService;
 import com.ponikarchuk.service.WordFrequencyServiceImpl;
-import com.ponikarchuk.thread.Parser;
-import com.ponikarchuk.dao.WordFrequencyDaoImpl;
 import com.ponikarchuk.model.WordFrequency;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.Semaphore;
 
 @RestController
 public class CustomRestController {
